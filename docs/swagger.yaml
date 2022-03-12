@@ -1,0 +1,75 @@
+definitions:
+  types.Transaction:
+    properties:
+      amount:
+        type: number
+      category:
+        type: string
+      date:
+        type: string
+      id:
+        type: string
+      source:
+        type: string
+    type: object
+  types.TransactionsResponse:
+    properties:
+      total:
+        type: integer
+      transactions:
+        items:
+          $ref: '#/definitions/types.Transaction'
+        type: array
+    type: object
+info:
+  contact: {}
+paths:
+  /transactions:
+    get:
+      description: Returns top level transactions
+      parameters:
+      - description: Items per page limit
+        in: query
+        name: limit
+        type: integer
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.TransactionsResponse'
+      summary: Top level transactions
+      tags:
+      - transactions
+  /transactions/{id}/sublist:
+    get:
+      description: Returns related transactions
+      parameters:
+      - description: Transaction id
+        in: path
+        name: id
+        type: string
+      - description: Items per page limit
+        in: query
+        name: limit
+        type: integer
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.TransactionsResponse'
+      summary: Top level transactions
+      tags:
+      - transactions_sub_list
+swagger: "2.0"
